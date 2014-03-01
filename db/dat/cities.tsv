@@ -1,0 +1,101 @@
+Rank	City	State	2013 Population	Latitude	Longitude
+1	New York	New York	8336697	40.6643	73.9385
+2	Los Angeles	California	3857799	34.0194	118.4108
+3	Chicago	Illinois	2714856	41.8376	87.6818
+4	Houston	Texas	2160821	29.7805	95.3863
+5	Philadelphia	Pennsylvania	1547607	40.0094	75.1333
+6	Phoenix	Arizona	1488750	33.5722	112.0880
+7	San Antonio	Texas	1382951	29.4724	98.5251
+8	San Diego	California	1338348	32.8153	117.1350
+9	Dallas	Texas	1241162	32.7757	96.7967
+10	San Jose	California	982765	37.2969	121.8193
+11	Austin	Texas	842592	30.3072	97.7560
+12	Jacksonville	Florida	836507	30.3370	81.6613
+13	Indianapolis	Indiana	834852	39.7767	86.1459
+14	San Francisco	California	825863	37.7751	122.4193
+15	Columbus	Ohio	809798	39.9848	82.9850
+16	Fort Worth	Texas	777992	32.7795	97.3463
+17	Charlotte	North Carolina	775202	35.2087	80.8307
+18	Detroit	Michigan	701475	42.3830	83.1022
+19	El Paso	Texas	672538	31.8484	106.4270
+20	Memphis	Tennessee	655155	35.1035	89.9785
+21	Boston	Massachusetts	636479	42.3320	71.0202
+22	Seattle	Washington	634535	47.6205	122.3509
+23	Denver	Colorado	634265	39.7618	104.8806
+24	Washington	District of Columbia	632323	38.9041	77.0171
+25	Nashville	Tennessee	624496	36.1718	86.7850
+26	Baltimore	Maryland	621342	39.3002	76.6105
+27	Louisville	Kentucky	605110	38.1781	85.6667
+28	Portland	Oregon	603106	45.5370	122.6500
+29	Oklahoma City	Oklahoma	599199	35.4671	97.5137
+30	Milwaukee	Wisconsin	598916	43.0633	87.9667
+31	Las Vegas	Nevada	596424	36.2277	115.2640
+32	Albuquerque	New Mexico	555417	35.1056	106.6474
+33	Tucson	Arizona	524295	32.1543	110.8711
+34	Fresno	California	505882	36.7827	119.7945
+35	Sacramento	California	475516	38.5666	121.4686
+36	Long Beach	California	467892	33.8091	118.1553
+37	Kansas City	Missouri	464310	39.1252	94.5511
+38	Mesa	Arizona	452084	33.4019	111.7174
+39	Virginia Beach	Virginia	447021	36.7793	76.0240
+40	Atlanta	Georgia	443775	33.7629	84.4227
+41	Colorado Springs	Colorado	431834	38.8673	104.7607
+42	Raleigh	North Carolina	423179	35.8302	78.6414
+43	Omaha	Nebraska	421570	41.2647	96.0419
+44	Miami	Florida	413892	25.7752	80.2086
+45	Oakland	California	400740	37.7699	122.2256
+46	Tulsa	Oklahoma	393987	36.1279	95.9023
+47	Minneapolis	Minnesota	392880	44.9633	93.2683
+48	Cleveland	Ohio	390928	41.4781	81.6795
+49	Wichita	Kansas	385577	37.6907	97.3427
+50	Arlington	Texas	375600	32.7007	97.1247
+51	New Orleans	Louisiana	369250	30.0686	89.9390
+52	Bakersfield	California	358597	35.3212	119.0183
+53	Tampa	Florida	347645	27.9701	82.4797
+54	Honolulu	Hawai'i	345610	21.3259	157.8453
+55	Anaheim	California	343248	33.8555	117.7601
+56	Aurora	Colorado	339030	32.7007	97.1247
+57	Santa Ana	California	330920	33.7365	117.8826
+58	St. Louis	Missouri	318172	38.6357	90.2446
+59	Riverside	California	313673	33.9381	117.3932
+60	Corpus Christi	Texas	312195	27.7543	97.1734
+61	Pittsburgh	Pennsylvania	306211	40.4398	79.9766
+62	Lexington	Kentucky	310573	38.0402	84.4584
+63	Anchorage	Alaska	298610	61.1775	149.2744
+64	Stockton	California	297984	37.9763	121.3133
+65	Cincinnati	Ohio	296550	39.1399	84.5064
+66	Saint Paul	Minnesota	290770	44.9489	93.1039
+67	Toledo	Ohio	284012	41.6641	83.5819
+68	Newark	New Jersey	277727	40.7242	74.1726
+69	Greensboro	North Carolina	277080	36.0965	79.8271
+70	Plano	Texas	272068	33.0508	96.7479
+71	Henderson	Nevada	265679	36.0122	115.0375
+72	Lincoln	Nebraska	265404	40.8090	96.6804
+73	Buffalo	New York	259384	42.8925	78.8597
+74	Fort Wayne	Indiana	254555	41.0882	85.1439
+75	Jersey City	New Jersey	254441	40.7114	74.0648
+76	Chula Vista	California	252422	32.6277	117.0152
+77	Orlando	Florida	249562	28.4159	81.2988
+78	St. Petersburg	Florida	246541	27.7620	82.6441
+79	Norfolk	Virginia	245782	36.9230	76.2446
+80	Chandler	Arizona	245628	33.2829	111.8549
+81	Laredo	Texas	244731	27.5477	99.4869
+82	Madison	Wisconsin	240323	43.0878	89.4301
+83	Durham	North Carolina	239358	35.9810	78.9056
+84	Lubbock	Texas	236065	33.5665	101.8867
+85	Winston–Salem	North Carolina	234349	36.1033	80.2606
+86	Garland	Texas	233564	32.9098	96.6304
+87	Glendale	Arizona	232143	33.5331	112.1899
+88	Hialeah	Florida	231941	25.8699	80.3029
+89	Reno	Nevada	231027	39.4745	119.7765
+90	Baton Rouge	Louisiana	230058	30.4485	91.1259
+91	Irvine	California	229985	33.6784	117.7713
+92	Chesapeake	Virginia	228417	36.6794	76.3018
+93	Irving	Texas	225427	32.8577	96.9700
+94	Scottsdale	Arizona	223514	33.6687	111.8237
+95	North Las Vegas	Nevada	223491	36.2830	115.0893
+96	Fremont	California	221986	37.4944	121.9411
+97	Gilbert	Arizona	221140	33.3102	111.7422
+98	San Bernardino	California	213295	34.1393	117.2953
+99	Boise	Idaho	212303	43.5985	116.2311
+100	Birmingham	Alabama	212038	33.5274	86.7990
