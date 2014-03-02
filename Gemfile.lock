@@ -43,6 +43,7 @@ GEM
     coffee-script-source (1.7.0)
     columnize (0.3.6)
     cookiejar (0.3.1)
+    curb (0.8.5)
     daemons (1.1.9)
     debugger (1.6.5)
       columnize (>= 0.3.1)
@@ -198,6 +199,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   coffee-rails (~> 4.0.0)
+  curb
   debugger
   factory_girl_rails
   jbuilder (~> 1.2)
