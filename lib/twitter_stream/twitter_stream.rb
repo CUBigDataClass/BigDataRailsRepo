@@ -1,1 +1,0 @@
-require_relative '../twitter_stream/lib/client'
