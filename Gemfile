@@ -43,5 +43,7 @@ gem 'debugger', group: [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
 gem 'factory_girl_rails', group: [:development, :test]
 
-gem 'twitter'
+gem 'twitter', '5.7.1'
+gem 'tweetstream'
 gem 'puma'
+gem 'redis', '2.1.1'
