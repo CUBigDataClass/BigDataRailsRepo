@@ -1,6 +1,38 @@
 class TwitterController < ApplicationController
-  def query
 
+  RADIUS = '10mi'
+
+  def all_city_search
+    city_geos = City.all.collect{ |city| [city.latitude, city.longitude] }
+    radius = params[:radius] || RADIUS
+
+    all_tweets=[]
+    search_threads=[]
+    city_geos[0..4].each do |city_geo|
+      search_threads << Thread.new do
+        geo_str = "#{city_geo[0]}, #{city_geo[-1]}, #{radius}"
+        Rails.logger.debug "All city query: #{params[:query_str]} #{geo_str}"
+
+        begin
+           result = client.search( params[:query_str], {geocode: geo_str, count: 5} ).collect(&:text)
+           Rails.logger.debug result
+           all_tweets.merge result
+        rescue => e
+          puts e.message
+          sleep 10
+          retry
+        end
+      end
+    end
+    search_threads.each(&:join)
+
+    respond_to do |format|
+      format.json { render json: all_tweets.to_json }
+      format.text { render text: all_tweets.inspect }
+    end
+  end
+
+  def query
     result = client.search params[:query_str] #, params[:query_params]
 
     respond_to do |format|
