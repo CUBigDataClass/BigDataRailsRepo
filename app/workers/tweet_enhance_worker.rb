@@ -3,9 +3,11 @@ class TweetEnhanceWorker
   CHUNK = 1000
 
   def perform
-    tweets = pop_tweets
-    enhanced_tweets = enhance_tweet tweets
-    push_on_enhanced_queue enhanced_tweets
+    while true
+      tweets = pop_tweets
+      enhanced_tweets = enhance_tweet tweets
+      push_on_enhanced_queue enhanced_tweets
+    end
   end
 
   private
@@ -14,7 +16,8 @@ class TweetEnhanceWorker
 
   def pop_tweets
     ret_val=[]
-    CHUNK.times{ ret_val << $redis.brpop }
+    CHUNK.times{ ret_val << $redis.brpop($redis_keys[:raw_tweets], 0)[-1] }
+    ret_val.map{ |tw_json| JSON.parse tw_json }
   end
 
   def enhance_tweets(tweet_arr)
@@ -23,8 +26,11 @@ class TweetEnhanceWorker
     ret_val
   end
 
+
   # Transforms a Twitter::Tweet object into a hash with additional information
   def enhance_tweet(tweet)
-    tweet.to_hash
+    # Not implemented
+    puts tweet.to_yaml
+    tweet
   end
 end
