@@ -19,7 +19,7 @@ namespace :twitter do
 
     TweetStream::Client.new.sample do |status|
       puts status.text
-      $redis.lpush($redis_keys[:raw_tweets], status)
+      $redis.lpush($redis_keys[:raw_tweets], status.to_json)
     end
 
   end
