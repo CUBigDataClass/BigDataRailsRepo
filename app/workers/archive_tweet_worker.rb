@@ -5,8 +5,9 @@ class ArchiveTweetWorker
 
 	def perform
     while true
+      tweets = pop_tweets
       open_buffer
-      save_all_tweets pop_tweets
+      save_all_tweets tweets
       close_buffer
     end
 	end

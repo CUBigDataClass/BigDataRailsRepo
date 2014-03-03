@@ -1,1 +1,2 @@
 TweetEnhanceWorker.perform_async
+ArchiveTweetWorker.perform_async
