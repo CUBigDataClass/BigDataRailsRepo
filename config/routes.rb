@@ -1,5 +1,8 @@
 BigDataRailsServer::Application.routes.draw do
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   resources :cities
 
   get 'twitter/all_city_search' => 'twitter#all_city_search'
