@@ -38,15 +38,20 @@ end
 # Use Capistrano for deployment
 gem 'capistrano', group: :development
 
-# Use debugger
+# Custom additions
 gem 'debugger', group: [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
 gem 'factory_girl_rails', group: [:development, :test]
-
 gem 'twitter', '5.7.1'
 gem 'tweetstream'
 gem 'puma'
-gem 'redis', '2.1.1'
+gem 'redis'
 gem 'curb'
 gem 'oauth'
+gem 'whatlanguage'
+
+# Sidekiq
 gem 'sidekiq'
+gem 'sidetiq'
+gem 'sinatra', require: false
+gem 'slim'
