@@ -17,9 +17,10 @@ namespace :twitter do
   task :stream => :environment do
     raise 'Invalid twitter keys' unless test_keys
 
+    redis = Redis.new host: $redis_config[:host], port: $redis_config[:port], thread_safe: true
     TweetStream::Client.new.sample do |status|
       puts status.text
-      $redis.lpush($redis_keys[:raw_tweets], status.to_json)
+      redis.lpush($redis_keys[:raw_tweets], status.to_json)
     end
 
   end
