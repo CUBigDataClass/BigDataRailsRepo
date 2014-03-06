@@ -2,35 +2,35 @@ class TweetEnhanceWorker
   include Sidekiq::Worker
   CHUNK = 1000
 
-  def perform
-    while true
-      tweets = pop_tweets
-      enhanced_tweets = enhance_tweet tweets
-      push_on_enhanced_queue enhanced_tweets
-    end
+  # tweet_arr should be an array of hashes
+  # representing tweets
+  def perform(tweet_arr)
+    enhanced_tweets = enhance_tweets tweet_arr
+    push_on_enhanced_queue enhanced_tweets
   end
 
   private
 
-  def push_on_enhanced_queue(tweets); tweets.each{ |t| $redis.lpush($redis_keys[:enhanced_tweets], t) }; end
-
-  def pop_tweets
-    ret_val=[]
-    CHUNK.times{ ret_val << $redis.brpop($redis_keys[:raw_tweets], 0)[-1] }
-    ret_val.map{ |tw_json| JSON.parse tw_json }
+  def redis
+    @_redis ||= Redis.new host: $redis_config[:host], port: $redis_config[:port], thread_safe: true
   end
 
-  def enhance_tweets(tweet_arr)
-    ret_val=[]
-    tweet_arr.each{ |t| ret_val << enhance_tweet(t) }
-    ret_val
-  end
+  def push_on_enhanced_queue(tweets); tweets.each{ |t| redis.lpush($redis_keys[:enhanced_tweets], t.to_json) }; end
 
+  def enhance_tweets(tweet_arr); tweet_arr.map{ |t| enhance_tweet(t) }.select{ |a| a } ; end
 
-  # Transforms a Twitter::Tweet object into a hash with additional information
+  # Transforms a hash of a tweet object into a hash with additional information. Returns nil if
+  # the tweet cannot be enhanced
   def enhance_tweet(tweet)
     # Not implemented
-    puts tweet.to_yaml
+    #puts tweet.to_s
+    return nil if tweet['text'].nil?
+    return nil if !is_english?(tweet)
+
     tweet
+  end
+
+  def is_english?(tweet)
+    tweet['lang'] == 'en'
   end
 end
