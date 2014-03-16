@@ -2,8 +2,8 @@ class TweetWatchWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  TWEETS_PER_ARCHIVE_WORKER = 100
-  TWEETS_PER_ENHANCE_WORKER = 100
+  TWEETS_PER_ARCHIVE_WORKER = 500
+  TWEETS_PER_ENHANCE_WORKER = 500
 
   recurrence { minutely }
 
@@ -17,14 +17,16 @@ class TweetWatchWorker
 
   def perform
     tweet_arr=[]
+
+
     time = Time.measure do
+
       list_size = size_of_list($redis_keys[:raw_tweets]).to_f/2
       list_size = list_size.ceil
-
       while true
         val = redis.rpop($redis_keys[:raw_tweets])
         (tweet_arr << JSON.parse(val)) unless val.nil?
-        break if TWEETS_PER_ENHANCE_WORKER <= tweet_arr.size
+        break if list_size <= tweet_arr.size || list_size > TWEETS_PER_ENHANCE_WORKER
       end
     end
 
@@ -34,7 +36,9 @@ class TweetWatchWorker
 
     t = Time.now - 2.hours
     #ArchiveTweetWorker.perform_async pop_tweets_older_than_time(t.to_i)
-    ArchiveTweetWorker.perform_async pop_enhanced_tweets TWEETS_PER_ARCHIVE_WORKER
+    fourth_of_list = size_of_list($redis_keys[:enhanced_tweets])/4
+    pop_size = (fourth_of_list > TWEETS_PER_ARCHIVE_WORKER ? TWEETS_PER_ARCHIVE_WORKER : fourth_of_list)
+    ArchiveTweetWorker.perform_async pop_enhanced_tweets(pop_size)
   end
 
 
@@ -63,6 +67,10 @@ class TweetWatchWorker
 
   def size_of_list(key)
     redis.llen key
+  end
+
+  def max_worker_chunk
+    
   end
 
 end
