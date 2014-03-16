@@ -52,7 +52,6 @@ GEM
     columnize (0.3.6)
     connection_pool (2.0.0)
     cookiejar (0.3.2)
-    curb (0.8.5)
     daemons (1.1.9)
     debugger (1.6.6)
       columnize (>= 0.3.1)
@@ -238,7 +237,6 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   coffee-rails (~> 4.0.0)
-  curb
   debugger
   factory_girl_rails
   jbuilder (~> 1.2)
