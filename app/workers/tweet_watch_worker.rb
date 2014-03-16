@@ -33,8 +33,9 @@ class TweetWatchWorker
 
     (TweetEnhanceWorker.perform_async tweet_arr.select{ |a| !a.nil? }) unless tweet_arr.empty?
 
-    #t = Time.now - 2.hours
+    t = Time.now - 2.hours
     #ArchiveTweetWorker.perform_async pop_tweets_older_than_time(t.to_i)
+    ArchiveTweetWorker.perform_async pop_enhanced_tweets( ( size_of_list($redis_keys[:enhanced_tweets])/4 ).to_i )
   end
 
 
@@ -49,10 +50,16 @@ class TweetWatchWorker
 
   def pop_tweets_older_than_timestamp(t)
     time_stamp = t.to_i
-    oldest_keys = redis.hkeys($redis_keys[:twitter_enhanced]).select{ |key| key < time_stamp }
-    ret_val = redis.hmget $redis_keys[:twitter_enhanced], oldest_keys
-    redis.hdel redis_keys[:twitter_enhanced], oldest_keys
+    oldest_keys = redis.hkeys($redis_keys[:enhanced_tweets]).select{ |key| key < time_stamp }
+    ret_val = redis.hmget $redis_keys[:enhanced_tweets], oldest_keys
+    redis.hdel redis_keys[:enhanced_tweets], oldest_keys
     ret_val
+  end
+
+  def pop_enhanced_tweets(n)
+    tweets=[]
+    n.times{ tweets << redis.rpop($redis_keys[:enhanced_tweets]) }
+    tweets
   end
 
   def size_of_list(key)

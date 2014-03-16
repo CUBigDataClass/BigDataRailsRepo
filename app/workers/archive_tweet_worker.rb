@@ -6,14 +6,15 @@ class ArchiveTweetWorker
 	# Expects an array of hash representations of Tweet objects
   def perform(tweet_arr)
   	open_buffer
-    save_all_tweets tweets
+    save_all_tweets tweet_arr
   	close_buffer
+    Rails.logger.debug "Wrote out #{tweet_arr.size} tweets"
   end
 
   private
 
   def file_path
-    File.join Rails.root, 'tmp', 'tweets.yml'
+    File.join Rails.root, 'db', 'dat', 'tweets.yml'
   end
 
   def save_all_tweets(tweets)
@@ -29,7 +30,7 @@ class ArchiveTweetWorker
   end
 
   def save(tweet)
-    @_file << tweet
+    @_file << (tweet + "\n")
   end
 
 end

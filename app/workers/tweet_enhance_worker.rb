@@ -59,6 +59,8 @@ class TweetEnhanceWorker
     if (location = user['location'])
       results = MapQuestSearch.raw location
 
+      return nil if results.nil?
+
       city=nil
       prefered_map_quest_search_types.each do |type|
         city = results.detect{ |result| result['type'] == type }
