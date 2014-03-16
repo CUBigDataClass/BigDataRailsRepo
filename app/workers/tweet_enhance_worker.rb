@@ -1,6 +1,10 @@
 class TweetEnhanceWorker
   include Sidekiq::Worker
   CHUNK = 1000
+  LAT = 'lat'
+  LON = 'lon'
+  GEO = 'geo'
+  COORDINATES = 'coordinates'
 
   # tweet_arr should be an array of hashes
   # representing tweets
@@ -27,10 +31,50 @@ class TweetEnhanceWorker
     return nil if tweet['text'].nil?
     return nil if !is_english?(tweet)
 
+    if has_lat_long?(tweet)
+      tweet[LAT], tweet[LON] = tweet[GEO][COORDINATES]
+    else
+      ( found_lat_lon = lookup_lat_long(tweet) ) ? (tweet[LAT], tweet[LON] = found_lat_lon) : (return nil)
+    end
+
     tweet
   end
 
   def is_english?(tweet)
     tweet['lang'] == 'en'
+  end
+
+  def has_lat_long?(tweet)
+    begin
+      coordinates = tweet[GEO][COORDINATES]
+      coordinates.is_a?(Array) && coordinates.size == 2
+    rescue
+      nil
+    end
+  end
+
+  def lookup_lat_long(tweet)
+    user = tweet['user']
+
+    if (location = user['location'])
+      results = MapQuestSearch.raw location
+
+      city=nil
+      prefered_map_quest_search_types.each do |type|
+        city = results.detect{ |result| result['type'] == type }
+        break if city
+      end
+      city ? [city[LAT], city[LON]] : nil
+    else
+      nil
+    end
+  end
+
+  def prefered_map_quest_search_types
+    @_prefered_types ||= %w(
+      city
+      hamlet
+      country
+    )
   end
 end

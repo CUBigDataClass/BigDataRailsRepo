@@ -50,7 +50,6 @@ class TweetWatchWorker
   def pop_tweets_older_than_timestamp(t)
     time_stamp = t.to_i
     oldest_keys = redis.hkeys($redis_keys[:twitter_enhanced]).select{ |key| key < time_stamp }
-
     ret_val = redis.hmget $redis_keys[:twitter_enhanced], oldest_keys
     redis.hdel redis_keys[:twitter_enhanced], oldest_keys
     ret_val
