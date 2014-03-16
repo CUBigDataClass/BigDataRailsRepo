@@ -17,15 +17,14 @@ class TweetWatchWorker
 
   def perform
     tweet_arr=[]
-
-
     time = Time.measure do
     list_size = size_of_list($redis_keys[:raw_tweets]).to_f/2
     list_size = list_size.ceil
+
     while true
       val = redis.rpop($redis_keys[:raw_tweets])
       (tweet_arr << JSON.parse(val)) unless val.nil?
-      break if list_size <= tweet_arr.size
+      break if TWEETS_PER_ENHANCE_WORKER <= tweet_arr.size
     end
     end
 
@@ -35,7 +34,7 @@ class TweetWatchWorker
 
     t = Time.now - 2.hours
     #ArchiveTweetWorker.perform_async pop_tweets_older_than_time(t.to_i)
-    ArchiveTweetWorker.perform_async pop_enhanced_tweets( ( size_of_list($redis_keys[:enhanced_tweets])/4 ).to_i )
+    ArchiveTweetWorker.perform_async pop_enhanced_tweets( ( TWEETS_PER_ARCHIVE_WORKER )
   end
 
 
