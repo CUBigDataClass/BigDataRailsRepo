@@ -26,7 +26,7 @@ class TweetWatchWorker
       while true
         val = redis.rpop($redis_keys[:raw_tweets])
         (tweet_arr << JSON.parse(val)) unless val.nil?
-        break if list_size <= tweet_arr.size || list_size > TWEETS_PER_ENHANCE_WORKER
+        break if list_size <= tweet_arr.size || tweet_arr.size > TWEETS_PER_ENHANCE_WORKER
       end
     end
 
@@ -69,8 +69,9 @@ class TweetWatchWorker
     redis.llen key
   end
 
+  # Not implimented
   def max_worker_chunk
-    
+
   end
 
 end
