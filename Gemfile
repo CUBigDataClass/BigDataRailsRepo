@@ -56,3 +56,4 @@ gem 'sidetiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'rest_client'
+gem 'protected_attributes'
