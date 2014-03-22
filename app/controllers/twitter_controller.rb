@@ -33,10 +33,18 @@ class TwitterController < ApplicationController
   end
 
   def query
-    result = client.search params[:query_str] #, params[:query_params]
+    result = client.search params[:query_str]
 
     respond_to do |format|
       format.json{ render text: result.inject(""){ |acc, tweet| "#{acc} #{tweet.text}\n\n" } and return }
+    end
+  end
+
+  def lat_lon_sample
+    length = $redis.llen $redis_keys[:twitter_enhanced]
+    results = $redis.lrange $redis_keys[:twitter_enhanced], 0, length
+    respond_to do |format|
+      format.json{ render json: results }
     end
   end
 

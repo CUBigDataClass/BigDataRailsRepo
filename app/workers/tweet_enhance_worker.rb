@@ -19,7 +19,7 @@ class TweetEnhanceWorker
     @_redis ||= Redis.new host: $redis_config[:host], port: $redis_config[:port], thread_safe: true
   end
 
-  def push_on_enhanced_queue(tweets); tweets.each{ |t| redis.lpush($redis_keys[:enhanced_tweets], t.to_json) }; end
+  def push_on_enhanced_queue(tweets); tweets.each{ |t| redis.hset($redis_keys[:enhanced_tweets], Time.now.to_f, t.to_json) }; end
 
   def enhance_tweets(tweet_arr); tweet_arr.map{ |t| enhance_tweet(t) }.select{ |a| a } ; end
 

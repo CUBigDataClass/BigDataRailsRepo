@@ -4,6 +4,7 @@ class TweetWatchWorker
 
   TWEETS_PER_ARCHIVE_WORKER = 500
   TWEETS_PER_ENHANCE_WORKER = 500
+  HOURS_UNTIL_ARCHIVE = 2
 
   recurrence { minutely }
 
@@ -30,26 +31,20 @@ class TweetWatchWorker
       end
     end
 
-    Rails.logger.debug "Took #{time} to perform with #{tweet_arr.size} elements\n\n"
+    #Rails.logger.debug "Took #{time} to perform with #{tweet_arr.size} elements\n\n"
 
     (TweetEnhanceWorker.perform_async tweet_arr.select{ |a| !a.nil? }) unless tweet_arr.empty?
 
-    t = Time.now - 2.hours
-    #ArchiveTweetWorker.perform_async pop_tweets_older_than_time(t.to_i)
-    fourth_of_list = size_of_list($redis_keys[:enhanced_tweets])/4
-    pop_size = (fourth_of_list > TWEETS_PER_ARCHIVE_WORKER ? TWEETS_PER_ARCHIVE_WORKER : fourth_of_list)
-    ArchiveTweetWorker.perform_async pop_enhanced_tweets(pop_size)
+    t = (Time.now - HOURS_UNTIL_ARCHIVE.hours).to_f
+    keys_older_than_2_hours = redis.hkeys($redis_keys[:enhanced_tweets]).select{ |k| t > k.to_f }
+    #debugger
+    ArchiveTweetWorker.perform_async pop_enhanced_tweets keys_older_than_2_hours unless keys_older_than_2_hours.empty?
   end
 
 
   private
 
-
-
-
   def redis; @_redis ||= Redis.new host: $redis_config[:host], port: $redis_config[:port], thread_safe: true; end
-
-
 
   def pop_tweets_older_than_timestamp(t)
     time_stamp = t.to_i
@@ -60,9 +55,14 @@ class TweetWatchWorker
   end
 
   def pop_enhanced_tweets(n)
-    tweets=[]
-    n.times{ tweets << redis.rpop($redis_keys[:enhanced_tweets]) }
-    tweets
+    Rails.logger.debug "HMGET args were: #{[$redis_keys[:enhanced_tweets], n].inspect}"
+    begin
+      results = redis.hmget($redis_keys[:enhanced_tweets], n)
+    rescue
+
+    end
+    redis.hdel $redis_keys[:enhanced_tweets], n
+    results
   end
 
   def size_of_list(key)
