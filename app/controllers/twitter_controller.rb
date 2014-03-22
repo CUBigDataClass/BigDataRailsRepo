@@ -41,8 +41,7 @@ class TwitterController < ApplicationController
   end
 
   def lat_lon_sample
-    length = $redis.llen $redis_keys[:twitter_enhanced]
-    results = $redis.lrange $redis_keys[:twitter_enhanced], 0, length
+    results = $redis.hgetall $redis_keys[:enhanced_tweets]
     respond_to do |format|
       format.json{ render json: results }
     end
