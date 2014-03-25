@@ -2,6 +2,8 @@ class TwitterController < ApplicationController
 
   RADIUS = '10mi'
 
+  def index; end
+
   def all_city_search
     city_geos = City.all.collect{ |city| [city.latitude, city.longitude] }
     radius = params[:radius] || RADIUS
