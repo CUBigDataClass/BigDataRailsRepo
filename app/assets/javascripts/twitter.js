@@ -13,7 +13,7 @@ function createDataArray(){
         type: 'GET',
         url: '/twitter/lat_lon_sample.json',
         success: function(data){
-            parsedData = data;
+            var parsedData = data;
             parsedData = $.parseJSON(data);
                  console.log(parsedData);
             var coordArr = Array();
