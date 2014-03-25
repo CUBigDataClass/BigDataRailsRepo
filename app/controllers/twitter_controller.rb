@@ -44,15 +44,14 @@ class TwitterController < ApplicationController
 
   def lat_lon_sample
     results = $redis.hgetall $redis_keys[:enhanced_tweets]
-    results = results.map{ |h| JSON.parse h }.collect do |t|
-      lat = t['lat']
-      lon = t['lon']
-      (lat && lon) ? [t['lat'], t['lon']] : []
+    results = results.collect do |redis_arr|
+      tweet = JSON.parse redis_arr[-1]
+      [tweet['lat'].to_f, tweet['lon'].to_f]
     end
     results.delete []
 
     respond_to do |format|
-      format.json{ render json: results }
+      format.json{ render json: results.to_json }
     end
   end
 
