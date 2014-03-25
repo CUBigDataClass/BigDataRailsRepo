@@ -1,7 +1,4 @@
 var map, pointarray, heatmap;
-var taxiData = createDataArray();
-
-
 
 function initialize() {
     createDataArray();
@@ -9,7 +6,7 @@ function initialize() {
 }
 
 function createDataArray(){
-     var mapOptions = {
+     var mapOptions={
         zoom: 10,
         center: new google.maps.LatLng(39.7392, -104.9847),
      	mapTypeId: google.maps.MapTypeId.SATELLITE
