@@ -46,7 +46,7 @@ class TwitterController < ApplicationController
     results = $redis.hgetall $redis_keys[:enhanced_tweets]
     results = results.collect do |redis_arr|
       tweet = JSON.parse redis_arr[-1]
-      [tweet['lat'], tweet['lon']]
+      [tweet['lat'].to_f, tweet['lon'].to_f]
     end
     results.delete []
 
