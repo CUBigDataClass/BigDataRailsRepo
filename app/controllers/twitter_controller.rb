@@ -51,7 +51,7 @@ class TwitterController < ApplicationController
     results.delete []
 
     respond_to do |format|
-      format.json{ render json: results }
+      format.json{ render json: results.to_json }
     end
   end
 
