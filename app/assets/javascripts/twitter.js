@@ -9,6 +9,15 @@ function initialize() {
 }
 
 function createDataArray(){
+     var mapOptions = {
+        zoom: 10,
+        center: new google.maps.LatLng(39.7392, -104.9847),
+     	mapTypeId: google.maps.MapTypeId.SATELLITE
+     };
+
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
+    return;
+    
     $.ajax({
         type: 'GET',
         url: '/twitter/lat_lon_sample.json',
