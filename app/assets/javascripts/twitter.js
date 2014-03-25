@@ -14,8 +14,7 @@ function createDataArray(){
       url: '/twitter/lat_lon_sample.json',
       async: false
     })
-    .done(function(data){
-      parsedData = $.parseJSON(data);
+    .done(function(parsedData){
       console.log(parsedData);
       var coordArr = Array();
       
