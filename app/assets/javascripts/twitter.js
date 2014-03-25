@@ -14,10 +14,11 @@ function createDataArray(){
         url: '/twitter/lat_lon_sample.json',
         success: function(data){
             parsedData = data;
-            console.log(parsedData);
+            parsedData = $.parseJSON(data);
+                 console.log(parsedData);
             var coordArr = Array();
 
-            for (var i=0; i<parsedData.length; i++){
+            for (var i=0; i<parsedData.length; i){
                 coordArr[i] = new google.maps.LatLng(parsedData[i][0], parsedData[i][1]);
             }
             console.log(coordArr);
@@ -38,7 +39,7 @@ function createDataArray(){
 
             heatmap.setMap(map);
         }
-    });
+    })
 }
 
 function toggleHeatmap() {
