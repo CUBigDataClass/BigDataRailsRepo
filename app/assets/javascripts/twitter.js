@@ -1,4 +1,3 @@
-// Adding 500 Data Points
 var map, pointarray, heatmap;
 var taxiData = createDataArray();
 
@@ -11,7 +10,7 @@ function initialize() {
 
 function createDataArray(){
     $.ajax({
-      type: 'POST',
+      type: 'GET',
       url: '/twitter/lat_lon_sample.json',
       async: false
     })
@@ -24,14 +23,14 @@ function createDataArray(){
       //   coordArr[i] = new google.maps.LatLng(parsedData[i][0], parsedData[i][1]); 
       // }
       // console.log(coordArr);
-      // var mapOptions = {
-      //   zoom: 10,
-      //   center: new google.maps.LatLng(39.7392, -104.9847),
-      //   mapTypeId: google.maps.MapTypeId.SATELLITE
-      // };
+      var mapOptions = {
+        zoom: 10,
+        center: new google.maps.LatLng(39.7392, -104.9847),
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+      };
 
-      // map = new google.maps.Map(document.getElementById('map-canvas'),
-      //     mapOptions);
+      map = new google.maps.Map(document.getElementById('map-canvas'),
+           mapOptions);
 
       // var pointArray = new google.maps.MVCArray(coordArr);
 
