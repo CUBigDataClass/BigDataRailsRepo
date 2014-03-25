@@ -46,7 +46,7 @@ class TwitterController < ApplicationController
     results = $redis.hgetall $redis_keys[:enhanced_tweets]
     results = results.collect do |t|
       begin
-        [t['lat'], t['lon']]  }
+        [t['lat'], t['lon']]
       rescue
         []
       end
