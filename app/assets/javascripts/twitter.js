@@ -17,12 +17,12 @@ function createDataArray(){
     .done(function(data){
       parsedData = $.parseJSON(data);
       console.log(parsedData);
-      // var coordArr = Array();
+      var coordArr = Array();
       
-      // for (var i=0; i<parsedData.length; i++){
-      //   coordArr[i] = new google.maps.LatLng(parsedData[i][0], parsedData[i][1]); 
-      // }
-      // console.log(coordArr);
+      for (var i=0; i<parsedData.length; i++){
+        coordArr[i] = new google.maps.LatLng(parsedData[i][0], parsedData[i][1]); 
+      }
+      console.log(coordArr);
       var mapOptions = {
         zoom: 10,
         center: new google.maps.LatLng(39.7392, -104.9847),
@@ -32,13 +32,13 @@ function createDataArray(){
       map = new google.maps.Map(document.getElementById('map-canvas'),
            mapOptions);
 
-      // var pointArray = new google.maps.MVCArray(coordArr);
+      var pointArray = new google.maps.MVCArray(coordArr);
 
-      // heatmap = new google.maps.visualization.HeatmapLayer({
-      //   data: pointArray
-      //   });
+      heatmap = new google.maps.visualization.HeatmapLayer({
+        data: pointArray
+        });
 
-      // heatmap.setMap(map);
+      heatmap.setMap(map);
 
       });
   }
