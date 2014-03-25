@@ -16,9 +16,9 @@ class TwitterController < ApplicationController
         Rails.logger.debug "All city query: #{params[:query_str]} #{geo_str}"
 
         begin
-           result = client.search( params[:query_str], {geocode: geo_str, count: 5} ).collect(&:text)
-           Rails.logger.debug result
-           all_tweets.merge result
+          result = client.search( params[:query_str], {geocode: geo_str, count: 5} ).collect(&:text)
+          Rails.logger.debug result
+          all_tweets.merge result
         rescue => e
           puts e.message
           sleep 10
@@ -44,7 +44,14 @@ class TwitterController < ApplicationController
 
   def lat_lon_sample
     results = $redis.hgetall $redis_keys[:enhanced_tweets]
-    results = results.collect{ |t| [t['lat', t['lon']]]  }
+    results = results.collect do |t|
+      begin
+        [t['lat'], t['lon']]  }
+      rescue
+        []
+      end
+    end
+
     respond_to do |format|
       format.json{ render json: results }
     end
