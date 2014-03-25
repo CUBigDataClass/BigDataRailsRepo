@@ -12,8 +12,7 @@ function createDataArray(){
      	mapTypeId: google.maps.MapTypeId.SATELLITE
      };
 
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
-    return;
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     $.ajax({
         type: 'GET',
@@ -44,7 +43,7 @@ function createDataArray(){
 
             heatmap.setMap(map);
         }
-    })
+    });
 }
 
 function toggleHeatmap() {
