@@ -1,14 +1,20 @@
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6t1AVEXxLUq4OvaIpclcYgD6R-NRilt4&sensor=true&libraries=visualization"></script>
-
-<%= javascript_include_tag 'twitter' %>
-<%= stylesheet_link_tag 'twitter' %>
-
-<div id="panel">
-    <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-    <button onclick="changeGradient()">Change gradient</button>
-    <button onclick="changeRadius()">Change radius</button>
-    <button onclick="changeOpacity()">Change opacity</button>
-</div>
-<div id="map-canvas"/>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>We Do Big Data</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/assets/source/css/style.css"></link>
+        <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.css">
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC6t1AVEXxLUq4OvaIpclcYgD6R-NRilt4&sensor=true&libraries=visualization"></script>
+	<%= requirejs_include_tag "application" %>        
+    </head>
+    <body>
+        <div style="margin-top: 50px; width: 100%; height: 100%;">
+            <div data-ng-view></div>
+        </div>
+    </body>
+</html>
 

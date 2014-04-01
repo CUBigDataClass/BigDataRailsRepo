@@ -49,6 +49,7 @@ gem 'redis'
 gem 'oauth'
 gem 'whatlanguage'
 gem 'mapquestsearch', git: 'https://github.com/nicky-isaacs/mapquestsearch.git'
+gem 'requirejs-rails'
 
 # Sidekiq
 gem 'sidekiq'
