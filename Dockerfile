@@ -6,7 +6,7 @@ RUN locale-gen en_US en_US.UTF-8 en_CA.UTF-8
 RUN dpkg-reconfigure locales
 
 # package requirements
-RUN apt-get install -y build-essentials
+RUN apt-get install -y build-essential
 RUN apt-get install -y redis-server
 RUN apt-get install -y mysql-server
 RUN apt-get
