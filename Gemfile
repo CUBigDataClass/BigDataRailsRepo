@@ -58,5 +58,4 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'rest_client'
 gem 'protected_attributes'
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+gem 'elasticsearch'
