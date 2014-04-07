@@ -1,4 +1,4 @@
-class BDElasticSearch::Base
+class BDElasticSearch
 
   # Statics
 
