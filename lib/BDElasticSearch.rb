@@ -1,9 +1,24 @@
 class BDElasticSearch
 
-  # Statics
+  @@configuration=nil
 
-  def self.all
-    shared_instace.search q: class.name
+  # Statics
+  def self.configure(options=nil)
+    raise 'No configuration options passed for BDElasticSearch::Configure()' unless options
+    @@configuration = options
+  end
+
+  # Return all the entries for a given index
+  def self.all(index)
+    scroll_id = shared_instance.search(search_type: :scan, scroll: '10m', size: 50)['_scroll_id']
+
+    ret_val=[]
+    do
+      results = shared_instace.scroll scroll_id: scroll_id, scroll: '10m'
+      hits = results['_shards']['hits']
+      ret_val.concat hits
+    end while !hits.empty?
+    ret_val
   end
 
   # Instance methods
@@ -38,7 +53,7 @@ class BDElasticSearch
 
   private
 
-  def client; @client ||= Elasticsearch::Client.new log: true; end
+  def client; @client ||= Elasticsearch::Client.new @@configuration.merge(log: true); end
 
   # Formats a document to be indexed
   def format_document(index, type, id, doc)
