@@ -61,7 +61,7 @@ module SimpleElasticSearch
   def perform_elasticsearch( host, path, action, params={}, port=nil )
     url = "#{host}:#{port}/#{path}"
     puts "Performing: #{[url, action, params]}" if LOGGING
-    params = params.to_json unless params.is_a? String
+    params = params.to_json unless [String, Hash].include? params.class
     c = Curl.send(action, url, params)
     c.body_str
   end
