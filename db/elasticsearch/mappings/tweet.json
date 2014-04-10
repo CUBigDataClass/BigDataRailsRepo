@@ -1,0 +1,12 @@
+{
+    "mappings":{
+        "tweet":{
+            "properties":{
+                "tweet_text":{"type":"string","index_title":"text"},
+                "username":{"type":"string"},
+                "location":{"type":"geo_point"},
+                "hashtags":{"type":"string"}
+            }
+        }
+    }
+}
