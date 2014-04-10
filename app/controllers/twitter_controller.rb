@@ -35,8 +35,7 @@ class TwitterController < ApplicationController
   end
 
   def query
-    result = client.search params[:query_str]
-
+    result = Twitter.search_str( query )
     respond_to do |format|
       format.json{ render text: result.inject(""){ |acc, tweet| "#{acc} #{tweet.text}\n\n" } and return }
     end

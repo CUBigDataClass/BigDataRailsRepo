@@ -11,6 +11,7 @@ class TweetEnhanceWorker
   def perform(tweet_arr)
     enhanced_tweets = enhance_tweets tweet_arr
     push_on_enhanced_queue enhanced_tweets
+    TweetIndexWorker.perform_async enhanced_tweets
   end
 
   private
