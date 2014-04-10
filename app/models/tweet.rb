@@ -11,12 +11,12 @@ class Tweet
   def self.search_str(str)
     query = {
         query:{
-            match:{
-                text: str
+            query_string:{
+                query: (str)
             }
         }
     }
-    result = self.search $elasticsearch_config[:host], $elasticsearch_config[:port], $elasticsearch_index, query, ELASTIC_SEARCH_TWEET_TYPE
+    result = self.search $elasticsearch_config[:host], $elasticsearch_config[:port], $elasticsearch_index, query, ELASTIC_SEARCH_TWEET_TYPE, 20
     result.hits.hits
   end
 
