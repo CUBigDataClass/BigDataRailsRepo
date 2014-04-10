@@ -21,6 +21,10 @@ class BDElasticSearch
     ret_val
   end
 
+  def self.setup_mapping(hash)
+    client.
+  end
+
   # Instance methods
 
   def initialize(hash)
