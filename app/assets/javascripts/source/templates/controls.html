@@ -1,8 +1,32 @@
-<div class="text-center" style="margin-top: 50px;">
+<div>
     <div id="panel" class="btn-toolbar" roll="toolbar">
         <button class="btn btn-success btn-lg" ng-click="toggleHeatmap()">Toggle Heatmap</button>
         <button class="btn btn-danger btn-lg" ng-click="changeGradient()">Change gradient</button>
         <button class="btn btn-warning btn-lg" ng-click="changeRadius()">Change radius</button>
         <button class="btn btn-info btn-lg" ng-click="changeOpacity()">Change opacity</button>
+    </div>
+    <div>
+        <h4 class="text-left" style="color: white;">Radius</h4>
+        
+    </div>
+    <div>
+        <h4 class="text-left" style="color: white;">Query Parameters:</h4>
+        <div ng-repeat="param in query_params">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" ng-click="toggle_input_type($index)" class="btn btn-toolbar">{{param.include ? 'Include:' : 'Exclude:'}}</button>
+                </div>
+                <input type="text" class="form-control" ng-model="param.input" value="{{param.input}}">
+                <span class="input-group-btn">
+                    <button class="btn btn-danger" type="button" ng-click="remove_query_param($index)">X</button>
+                </span>
+            </div>
+            <br>
+        </div>
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <button class="btn btn-success" ng-click="add_query_param()">Add</button>
+            <button class="btn btn-info" ng-click="submit_query()">Submit</button>
+        </div>
+        <div style="clear:both;"></div>
     </div>
 </div>
