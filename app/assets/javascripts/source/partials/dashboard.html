@@ -1,13 +1,13 @@
 <div class="main" ng-controller="Dashboard" ng-cloak>
-    <div style="position: absolute; margin:40px; z-index: 1000; height: 50px; width: 50px;">
-        <button type="button" class="btn btn-lg btn-info">
-            <span class="glyphicon glyphicon-star"></span>
+    <div style="position: absolute; margin:15px; z-index: 1000; height: 50px; width: 50px;">
+        <button type="button" class="btn btn-info" ng-click="toggle_controls()">
+            <span class="glyphicon {{controlDisplay ? 'glyphicon-arrow-left' : 'glyphicon-cog'}}"></span>
         </button>
     </div>
-    <div class="text-center" style="position:absolute; top:0px; bottom: 0px; left: 0; right: 0; margin-left: 400px; padding: 5px;">
+    <div class="text-center" id="map" style="position:absolute; top:0px; bottom: 0px; left: 0; right: 0; margin-left: 0px; padding: 5px;">
         <map></map>
     </div>
-    <div class="text-center" style="position: absolute; overflow-y:auto; height: 100%; width: 400px; margin-left: 0px; padding: 10px;">
+    <div class="text-center" id="controls" style=" background-color: #232323; position: absolute; overflow-y:auto; height: 100%; width: 400px; margin-left: -400px; padding: 10px;">
         <controls></controls>
     </div>
 </div>

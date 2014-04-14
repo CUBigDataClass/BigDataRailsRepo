@@ -10,7 +10,8 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             mapOptions: null
         };
 
-        $scope.radius_stop = function(event, ui) {
+        $scope.controlDisplay = false,
+                $scope.radius_stop = function(event, ui) {
             $scope.update_radius(ui.value);
         };
 
@@ -79,6 +80,22 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             };
         };
 
+        $scope.toggle_controls = function() {
+            if ($scope.controlDisplay) {
+                $("#controls").animate({
+                    'margin-left': '-=400px'
+                }, 1000, function() {
+                });
+            } else {
+                $("#controls").animate({
+                    'margin-left': '+=400px'
+                }, 1000, function() {
+                });
+            }
+
+            $scope.controlDisplay = !$scope.controlDisplay;
+        };
+
         $scope.toggle_input_type = function(index) {
             $scope.query_params[index].include = !$scope.query_params[index].include;
         };
@@ -121,22 +138,24 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             }
             $scope.data.heatmap.setValues(ops);
         };
-        
-        $scope.update_data = function(data){
-            if($scope.data.heatmapOptions.data){
+
+        $scope.update_data = function(data) {
+            if ($scope.data.heatmapOptions.data) {
                 $scope.data.heatmapOptions.data.clear();
             }
             $scope.data.heatmapOptions.data = data;
         };
-        
-        $scope.get_data_interval = function(){
-            if($scope.dataInterval){
+
+        $scope.get_data_interval = function() {
+            if ($scope.dataInterval) {
                 clearInterval($scope.dataInterval);
                 $scope.dataInterval = null;
             } else {
-                $scope.dataInterval = setInterval(function(){$scope.get_data()}, 10000); //10 seconds
+                $scope.dataInterval = setInterval(function() {
+                    $scope.get_data()
+                }, 10000); //10 seconds
             }
-            
+
         };
 
         $scope.get_data = function() {
