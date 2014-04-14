@@ -64,7 +64,13 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
                 center: new google.maps.LatLng(39.7392, -104.9847),
                 mapTypeId: google.maps.MapTypeId.SATELLITE,
                 streetViewControl: false,
-                mapTypeControl: false
+                mapTypeControl: false,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP,
+                },
+                panControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP,
+                },
             };
             $scope.data.heatmapOptions = {
                 radius: 20,
