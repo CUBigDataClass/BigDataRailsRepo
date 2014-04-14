@@ -7,12 +7,12 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             map: null,
             heatmap: null,
             heatmapOptions: null,
-            mapOptions: null,
+            mapOptions: null
         };
 
         $scope.radius_stop = function(event, ui) {
             $scope.update_radius(ui.value);
-        }
+        };
 
         $scope.update_radius = function(value) {
             if (!$scope.data.heatmap) {
@@ -62,7 +62,9 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             $scope.data.mapOptions = {
                 zoom: 3,
                 center: new google.maps.LatLng(39.7392, -104.9847),
-                mapTypeId: google.maps.MapTypeId.SATELLITE
+                mapTypeId: google.maps.MapTypeId.SATELLITE,
+                streetViewControl: false,
+                mapTypeControl: false
             };
             $scope.data.heatmapOptions = {
                 radius: 20,
