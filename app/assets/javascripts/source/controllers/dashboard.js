@@ -84,12 +84,12 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             if ($scope.controlDisplay) {
                 $("#controls").animate({
                     'margin-left': '-=400px'
-                }, 1000, function() {
+                }, 500, function() {
                 });
             } else {
                 $("#controls").animate({
                     'margin-left': '+=400px'
-                }, 1000, function() {
+                }, 500, function() {
                 });
             }
 
