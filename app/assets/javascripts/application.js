@@ -7,7 +7,9 @@ require.config({
         'jquery': 'lib/jquery/jquery',
         'underscore': 'lib/underscore/underscore.min',
         'text' : 'lib/require/text',
-        'map-api': 'lib/map_api/map-api'
+        'map-api': 'lib/map_api/map-api',
+        'jquery-ui': 'lib/jquery/jquery-ui.min',
+        'ui-slider': 'lib/angular/ui/slider'
     },
 
     shim: {
@@ -22,6 +24,12 @@ require.config({
         },
         'underscore': {
             exports: '_'
+        },
+        'jquery-ui': {
+            deps: ['jquery']
+        },
+        'ui-slider':{
+            deps:['angular', 'jquery', 'jquery-ui']
         }
     }
 });
