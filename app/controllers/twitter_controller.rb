@@ -41,6 +41,23 @@ class TwitterController < ApplicationController
     end
   end
 
+  # Sample of all tweets in elasticsearch
+  def elasticsearch_sample
+    results = Tweet.all
+    if params[:geo]
+      results = results.collect do |redis_arr|
+        tweet = JSON.parse redis_arr[-1]
+        [tweet['lat'].to_f, tweet['lon'].to_f]
+      end
+      results.delete []
+    end
+
+    respond_to do |format|
+      format.json{ render json: results.to_json }
+    end
+  end
+
+  # lat lon sample from all tweets in redis
   def lat_lon_sample
     results = $redis.hgetall $redis_keys[:enhanced_tweets]
     results = results.collect do |redis_arr|

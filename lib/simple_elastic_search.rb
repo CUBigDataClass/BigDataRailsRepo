@@ -1,6 +1,7 @@
 require 'curl'
 require 'json'
-require './hash'
+require_relative './hash.rb'
+
 module SimpleElasticSearch
 
   LOGGING = false
@@ -35,10 +36,21 @@ module SimpleElasticSearch
     JSON.parse response
   end
 
-  def all_docs_in_index(host, port, index, type=nil)
+  def all_docs_in_index(host, port, index, type=nil, max=nil)
     path = (type ? "#{index}/#{type}" : "#{index}") + '/_search'
     puts [host, path, port]
-    response = perform_elasticsearch host, path, :get, {}, port
+
+    all_query = {
+      query:{
+        query_string:{
+          query: "*"
+        }
+      },
+      from: 0,
+      size: (max || 100000)
+    }
+
+    response = perform_elasticsearch host, path, :get, all_query, port
     JSON.parse response
   end
 
@@ -61,7 +73,7 @@ module SimpleElasticSearch
   def perform_elasticsearch( host, path, action, params={}, port=nil )
     url = "#{host}:#{port}/#{path}"
     puts "Performing: #{[url, action, params]}" if LOGGING
-    params = params.to_json unless params.is_a? String
+    params = params.to_json unless [String, Hash].include? params.class
     c = Curl.send(action, url, params)
     c.body_str
   end
