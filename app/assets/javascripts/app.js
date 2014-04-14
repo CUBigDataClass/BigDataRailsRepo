@@ -1,15 +1,23 @@
-define(['angular', 
-'ngRoute', 
-'ngResource', 
-'source/controllers/index', 
-'source/directives/index', 
-'source/filters/index', 
-'source/services/index'],
-    function (angular) {
-        'use strict';
+define(['angular',
+    'ui-slider',
+    'ngRoute',
+    'ngResource',
+    'source/controllers/index',
+    'source/directives/index',
+    'source/filters/index',
+    'source/services/index'],
+        function(angular) {
+            'use strict';
 
-        var app = angular.module('app', [ 'app.controllers', 'app.directives', 'app.filters', 'app.services', 'ngRoute', 'ngResource']);
+            var app = angular.module('app', [
+                'app.controllers',
+                'app.directives',
+                'app.filters',
+                'app.services',
+                'ngRoute',
+                'ngResource',
+                'ui.slider']);
 
-        return app;
+            return app;
 
-    });
+        });
