@@ -1,20 +1,37 @@
 <div>
-    <div id="panel" class="btn-toolbar" roll="toolbar">
-        <button class="btn btn-success btn-lg" ng-click="toggleHeatmap()">Toggle Heatmap</button>
-        <button class="btn btn-danger btn-lg" ng-click="changeGradient()">Change gradient</button>
-        <button class="btn btn-warning btn-lg" ng-click="changeRadius()">Change radius</button>
-        <button class="btn btn-info btn-lg" ng-click="changeOpacity()">Change opacity</button>
+    <h2 style="color:white;">Controls</h2>
+    <div class="btn-toolbar" roll="toolbar">
+        <button class="btn btn-success" ng-click="toggleHeatmap()">Toggle Heatmap</button>
+        <button class="btn btn-warning" ng-click="get_data()">Refresh</button>
+        <button class="btn btn-danger" ng-click="get_data_interval()">Interval Refresh</button>
+    </div>
+    <br>
+    <div>
+        <h4 class="text-left" style="color: white;">Map type:</h4>
+        <div class="btn-group">
+            <button type="button" class="btn btn-info" ng-click="update_map_type('road')">Road</button>
+            <button type="button" class="btn btn-info" ng-click="update_map_type('satellite')">Satellite</button>
+            <button type="button" class="btn btn-info" ng-click="update_map_type('hybrid')">Hybrid</button>
+            <button type="button" class="btn btn-info" ng-click="update_map_type('terrain')">Terrain</button>
+        </div>
+        <br><br>
     </div>
     <div>
-        <h4 class="text-left" style="color: white;">Radius</h4>
-        
+        <h4 class="text-left" style="color: white;">Intensity:</h4>
+        <div ui-slider="{stop:radius_stop}" min="0" max="50" ng-model="data.heatmapOptions.radius"></div>
+        <br>
+    </div>
+    <div>
+        <h4 class="text-left" style="color: white;">Opacity:</h4>
+        <div ui-slider="{stop:opacity_stop, step:0.01}" min="0" max="1" ng-model="data.heatmapOptions.opacity"></div>
+        <br>
     </div>
     <div>
         <h4 class="text-left" style="color: white;">Query Parameters:</h4>
         <div ng-repeat="param in query_params">
             <div class="input-group">
                 <div class="input-group-btn">
-                    <button type="button" ng-click="toggle_input_type($index)" class="btn btn-toolbar">{{param.include ? 'Include:' : 'Exclude:'}}</button>
+                    <button type="button" ng-click="toggle_input_type($index)" class="btn btn-toolbar">{{param.include ? 'Include' : 'Exclude'}}</button>
                 </div>
                 <input type="text" class="form-control" ng-model="param.input" value="{{param.input}}">
                 <span class="input-group-btn">
@@ -24,9 +41,10 @@
             <br>
         </div>
         <div class="btn-toolbar pull-right" role="toolbar">
-            <button class="btn btn-success" ng-click="add_query_param()">Add</button>
+            <button class="btn btn-success" ng-click="add_query_param()">Add Another Query</button>
             <button class="btn btn-info" ng-click="submit_query()">Submit</button>
         </div>
         <div style="clear:both;"></div>
+        <br>
     </div>
 </div>
