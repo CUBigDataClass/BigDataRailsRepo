@@ -161,8 +161,8 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
         $scope.get_data = function() {
             $.ajax({
                 type: 'GET',
-                //url: '/twitter/lat_lon_sample.json',
-                url: '/assets/source/mock_data/mock_points.json', //Use this for testing when twitter isn't working
+                url: '/twitter/lat_lon_sample.json',
+                //url: '/assets/source/mock_data/mock_points.json', //Use this for testing when twitter isn't working
                 success: function(parsedData) {
 
                     var coordArr = Array();
