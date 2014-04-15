@@ -10,6 +10,21 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             mapOptions: null
         };
 
+        $scope.refresh_rates = [
+            {active: true, rate: 0},
+            {active: false, rate: 10},
+            {active: false, rate: 30},
+            {active: false, rate: 60},
+            {active: false, rate: 120},
+        ];
+
+        $scope.map_types = [
+            {type: 'Road', active: false},
+            {type: 'Satellite', active: true},
+            {type: 'Hybrid', active: false},
+            {type: 'Terrain', active: false}
+        ]
+
         $scope.controlDisplay = false,
                 $scope.radius_stop = function(event, ui) {
             $scope.update_radius(ui.value);
@@ -37,22 +52,29 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
         $scope.update_map_type = function(type) {
             var id = google.maps.MapTypeId.SATELLITE;
             switch (type) {
-                case "road":
+                case "Road":
                     id = google.maps.MapTypeId.ROADMAP;
                     break;
-                case "satellite":
+                case "Satellite":
                     id = google.maps.MapTypeId.SATELLITE;
                     break;
-                case "hybrid":
+                case "Hybrid":
                     id = google.maps.MapTypeId.HYBRID;
                     break;
-                case "terrain":
+                case "Terrain":
                     id = google.maps.MapTypeId.TERRAIN;
                     break;
                 default:
                     id = google.maps.MapTypeId.SATELLITE;
                     break;
             }
+            _.each($scope.map_types, function(map){
+                if(map.type == type){
+                    map.active = true;
+                } else {
+                    map.active = false;
+                };
+            });
             $scope.data.mapOptions.mapTypeId = id;
             $scope.data.map.setOptions($scope.data.mapOptions);
         };
@@ -146,15 +168,25 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             $scope.data.heatmapOptions.data = data;
         };
 
-        $scope.get_data_interval = function() {
+        $scope.set_refresh = function(secs) {
             if ($scope.dataInterval) {
                 clearInterval($scope.dataInterval);
                 $scope.dataInterval = null;
             } else {
-                $scope.dataInterval = setInterval(function() {
-                    $scope.get_data()
-                }, 10000); //10 seconds
+                $scope.get_data();
+                if(secs !== 0){
+                    $scope.dataInterval = setInterval(function() {
+                        $scope.get_data();
+                    }, secs*1000);
+                }
             }
+            _.each($scope.refresh_rates, function(rate){
+                if(secs == rate){
+                    rate.active = true;
+                } else {
+                    rate.active = false;
+                }
+            });
 
         };
 

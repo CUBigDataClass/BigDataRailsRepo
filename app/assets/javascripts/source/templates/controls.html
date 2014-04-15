@@ -3,17 +3,23 @@
     <h2 style="color:white;">Controls</h2>
     <div class="btn-toolbar" roll="toolbar">
         <button class="btn btn-success" ng-click="toggleHeatmap()">Toggle Heatmap</button>
-        <button class="btn btn-warning" ng-click="get_data()">Refresh</button>
-        <button class="btn btn-danger" ng-click="get_data_interval()">Continuous</button>
     </div>
     <br>
     <div>
         <h4 class="text-left" style="color: white;">Map Type:</h4>
         <div class="btn-group">
-            <button type="button" class="btn btn-info" ng-click="update_map_type('road')">Road</button>
-            <button type="button" class="btn btn-info" ng-click="update_map_type('satellite')">Satellite</button>
-            <button type="button" class="btn btn-info" ng-click="update_map_type('hybrid')">Hybrid</button>
-            <button type="button" class="btn btn-info" ng-click="update_map_type('terrain')">Terrain</button>
+            <button ng-repeat="type in map_types" type="button" class="btn btn-info {{type.active? 'active' : ''}}" ng-click="update_map_type(type.type)">
+                {{type.type}}
+            </button>
+        </div>
+        <br><br>
+    </div>
+    <div>
+        <h4 class="text-left" style="color: white;">Refresh Rate:</h4>
+        <div class="btn-group">
+            <button ng-repeat="refresh in refresh_rates" class="btn btn-warning {{refresh.active ? 'active' : ''}}" ng-click="set_refresh(refresh.rate)">
+                {{refresh.rate == 0 ? "Once" : refresh.rate + " sec"}}
+            </button>
         </div>
         <br><br>
     </div>
