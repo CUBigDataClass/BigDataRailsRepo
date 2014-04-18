@@ -41,6 +41,22 @@ class TwitterController < ApplicationController
     end
   end
 
+  #GET /twitter/elasticsearch_query?query='{
+  #   "query":{
+  #     "stuff":{}
+  #   }
+  # }'
+
+  def elasticsearch_query
+    query_obj = params[:query]
+    result = Tweet.search(query_obj)
+    # TODO: Filter out only lat lon
+
+    respond_to do |format|
+      format.json{ render json: result }
+    end
+  end
+
   # Sample of all tweets in elasticsearch
   def elasticsearch_sample
     results = Tweet.all
