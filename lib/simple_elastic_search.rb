@@ -6,6 +6,14 @@ module SimpleElasticSearch
 
   LOGGING = false
 
+  def get_hits(input)
+    if input.is_a?(Hash) && input.keys.include?('hits')
+      get_hits input['hits']
+    else
+      input
+    end
+  end
+
   def create_index(host, port, index_name)
     result = perform_elasticsearch host, index_name, :put, {}, port
     JSON.parse result

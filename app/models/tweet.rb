@@ -8,6 +8,13 @@ class Tweet
     results.hits.hits
   end
 
+  def self.query(query)
+    result = get_hits self.search $elasticsearch_config[:host], $elasticsearch_config[:port], $elasticsearch_index, query, ELASTIC_SEARCH_TWEET_TYPE
+    result = result.collect { |r| [r['_source']['lat'], r['_source']['lon']] }
+    result.delete [nil, nil]
+    result
+  end
+
   def self.search_str(str)
     query = {
         query:{
