@@ -48,9 +48,8 @@ class TwitterController < ApplicationController
   # }'
 
   def elasticsearch_query
-    query_obj = params[:query]
-    result = Tweet.search(query_obj)
-    # TODO: Filter out only lat lon
+    query_obj = params[:query].to_hash
+    result = Tweet.query query_obj
 
     respond_to do |format|
       format.json{ render json: result }
