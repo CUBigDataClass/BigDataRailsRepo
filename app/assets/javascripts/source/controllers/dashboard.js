@@ -23,7 +23,16 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             {type: 'Satellite', active: true},
             {type: 'Hybrid', active: false},
             {type: 'Terrain', active: false}
-        ]
+        ];
+
+        $scope.result_sizes = [
+            {active: true, size: 10},
+            {active: false, size: 100},
+            {active: false, size: 1000},
+            {active: false, size: 10000}
+        ];
+
+        $scope.query_params = [{include: true, input: ""}];
 
         $scope.controlDisplay = false,
                 $scope.radius_stop = function(event, ui) {
@@ -79,8 +88,6 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
             $scope.data.map.setOptions($scope.data.mapOptions);
         };
 
-        $scope.query_params = [{include: true, input: ""}];
-
         $scope.init = function() {
             $scope.data.mapOptions = {
                 zoom: 3,
@@ -131,7 +138,7 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
         };
 
         $scope.submit_query = function() {
-            //submit query goes here.
+            $scope.get_data();
         };
 
         $scope.setup_new_map = function() {
@@ -190,11 +197,62 @@ define(['jquery', 'underscore', 'source/modules/controller'], function($, _, con
 
         };
 
+        $scope.set_size = function(size){
+            _.each($scope.result_sizes, function(s){
+                if(s.size == parseInt(size)) {
+                    s.active = true;
+                } else {
+                    s.active = false;
+                }
+            });
+            $scope.get_data();
+        };
+
+        $scope.get_result_size = function() {
+            for(var i = 0; i < $scope.result_sizes.length; i++){
+                if($scope.result_sizes[i].active){
+                    return $scope.result_sizes[i].size;
+                }
+            }
+            return 10;
+        }
+
+        $scope.generate_query = function() {
+            var str_query = "";
+            for(var i = 0; i < $scope.query_params.length; i++){
+                if($scope.query_params[i].input === ""){
+                    continue;
+                }
+                if($scope.query_params[i].include){
+                    str_query += "+text:*" + $scope.query_params[i].input + "* ";
+                } else {
+                    str_query += "-text:*" + $scope.query_params[i].input + "* ";
+                }
+            }
+
+            if(str_query == ""){
+                str_query = "*";
+            }
+
+            var query = {
+                "query":
+                    {"query_string":{
+                        "query": str_query
+                    }
+                },
+                "size": $scope.get_result_size()};
+
+            return query;
+
+        };
+
         $scope.get_data = function() {
             $.ajax({
                 type: 'GET',
-                url: '/twitter/lat_lon_sample.json',
-                //url: '/assets/source/mock_data/mock_points.json', //Use this for testing when twitter isn't working
+                data: {"query" : $scope.generate_query()},
+        contentType: "application/json;charset=utf-8",
+        dateType:'json',
+                url: '/twitter/elasticsearch_query.json',
                 success: function(parsedData) {
 
                     var coordArr = Array();

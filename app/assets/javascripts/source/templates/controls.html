@@ -24,6 +24,15 @@
         <br><br>
     </div>
     <div>
+        <h4 class="text-left" style="color: white;">Result Count:</h4>
+        <div class="btn-group">
+            <button ng-repeat="size in result_sizes" class="btn btn-danger {{size.active ? 'active' : ''}}" ng-click="set_size(size.size)">
+                {{size.size}}
+            </button>
+        </div>
+        <br><br>
+    </div>
+    <div>
         <h4 class="text-left" style="color: white;">Intensity:</h4>
         <div ui-slider="{stop:radius_stop}" min="0" max="50" ng-model="data.heatmapOptions.radius"></div>
         <br>
@@ -34,7 +43,7 @@
         <br>
     </div>
     <div>
-        <h4 class="text-left" style="color: white;">Query Parameters:</h4>
+        <h4 class="text-left" style="color: white;">Key Workds:</h4>
         <query></query>
     </div>
 </div>
