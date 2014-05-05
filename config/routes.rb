@@ -5,11 +5,11 @@ BigDataRailsServer::Application.routes.draw do
 
   resources :cities
 
-  get 'twitter/all_city_search' => 'twitter#all_city_search'
-  get 'twitter/lat_lon_sample' => 'twitter#lat_lon_sample'
-  get 'twitter/query' => 'twitter#query'
+  get 'twitter/all_city_search'      => 'twitter#all_city_search'
+  get 'twitter/lat_lon_sample'       => 'twitter#lat_lon_sample'
+  get 'twitter/query'                => 'twitter#query'
   get 'twitter/elasticsearch_sample' => 'twitter#elasticsearch_sample'
-  post 'twitter/elasticsearch_query' => 'twitter#elasticsearch_query'
+  get 'twitter/elasticsearch_query'  => 'twitter#elasticsearch_query'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
