@@ -1,4 +1,4 @@
-require 'curl'
+require 'rest-client'
 require 'json'
 require_relative './hash.rb'
 
@@ -82,8 +82,7 @@ module SimpleElasticSearch
     url = "#{host}:#{port}/#{path}"
     puts "Performing: #{[url, action, params]}" if LOGGING
     params = params.to_json unless [String, Hash].include? params.class
-    c = Curl.send(action, url, params)
-    c.body_str
+    RestClient.send action, url, params.to_json
   end
 
   def example_mappings_str
