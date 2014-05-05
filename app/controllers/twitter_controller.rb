@@ -49,6 +49,7 @@ class TwitterController < ApplicationController
 
   def elasticsearch_query
     query_obj = params[:query].to_hash
+    Rails.logger.debug "Query object: #{query_obj}"
     result = Tweet.query query_obj
 
     respond_to do |format|
