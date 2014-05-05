@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'source/modules/controller'], function($, _, controllers) {
+define(['jquery', 'underscore', 'source/modules/controller', 'ui-slider'], function($, _, controllers) {
     'use strict';
 
     controllers.controller('Dashboard', function($scope) {
